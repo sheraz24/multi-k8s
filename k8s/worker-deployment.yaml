@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: worker-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: worker
+  template:
+    metadata:
+      labels:
+        component: worker
+    spec:
+      containers:
+        - name: worker
+          image: sheraz24/multi-worker 
+          env:
+            - name: REDIS_HOST 
+              value: redis_cluster_ip_service
+            - name: REDIS_PORT
+              value: '6379'
+              
